@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="">
+        <label for="zipCode">Type your zip code</label>
+        
+        <input type="number" name="zipCode" id="zipCode" placeholder="00000000">
+
+        <button type="button" onclick="sendZipCode()">Send</button>
+    </form>
+    
+    <div id="demo">
+
+
+    </div>
+
+    <script>
+        function sendZipCode() {
+            
+            const xhttp = new XMLHttpRequest();
+
+            xhttp.onload = function() {
+                
+            const zipCode = document.getElementById('zipCode');
+
+            const json = JSON.parse(this.responseText);
+
+            document.getElementById('demo').innerHTML = 
+                `
+                    <p>your zip code: ${json.cep}</p>
+                    <p>your street name: ${json.logradouro}</p>
+                `;
+            }
+
+            xhttp.open('GET', `https://viacep.com.br/ws/${zipCode.value}/json/`, true);
+
+            xhttp.send();   
+        }
+
+            
+
+        
+    </script>
+
+</body>
+</html>
